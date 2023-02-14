@@ -173,6 +173,28 @@ const menu = [
 const root = document.getElementById('root');
 function createTreeView(menu, currentNode) {
   // TODO: createTreeView 함수를 작성하세요.
+  //recusive case : cildren이 포함 됐을 때,
+  //li,span,ul,checkbox 생성 후 리스트 정렬
+  for(let i = 0; i<menu.length; i++){
+    const li = document.createElement('li')
+    if(menu[i].children){
+      const span = document.createElement('span')
+      span.textContent = menu[i].name
+      const input = document.createElement('input')
+      input.type = 'checkbox'
+      const ul = document.createElement('ul')
+      li.append(input, span, ul)
+      currentNode.append(li)
+      //재귀 함수 호출
+      createTreeView(menu[i].children, ul)
+    }
+    //base case : children이 포함되지 않을 때,
+    //li에 이름값 넣어주고 정렬
+    else {
+      li.textContent = menu[i].name
+      currentNode.append(li)
+    }
+  }
 }
 
 createTreeView(menu, root);
